@@ -435,7 +435,7 @@ class PrestaShopWebservice
      * @return SimpleXMLElement
      * @throws PrestaShopWebserviceException
      */
-    public function edit($options)
+    public function edit($options, $method = 'PUT')
     {
         $xml = '';
         if (isset($options['url'])) {
@@ -454,7 +454,7 @@ class PrestaShopWebservice
             throw new PrestaShopWebserviceException('Bad parameters given');
         }
 
-        $request = $this->executeRequest($url, array(CURLOPT_CUSTOMREQUEST => 'PUT', CURLOPT_POSTFIELDS => $xml));
+        $request = $this->executeRequest($url, array(CURLOPT_CUSTOMREQUEST => $method, CURLOPT_POSTFIELDS => $xml));
         $this->checkStatusCode($request);// check the response validity
         return $this->parseXML($request['response']);
     }
